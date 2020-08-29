@@ -342,10 +342,18 @@ class HttpConnection implements IConnection {
     switch (transport) {
       case HttpTransportType.WebSockets:
         return WebSocketTransport(
-            _accessTokenFactory, _logger, _options.logMessageContent ?? false);
+          _accessTokenFactory,
+          _options.initialHeaders ?? [],
+          _logger,
+          _options.logMessageContent ?? false,
+        );
       case HttpTransportType.ServerSentEvents:
-        return new ServerSentEventsTransport(_httpClient, _accessTokenFactory,
-            _logger, _options.logMessageContent ?? false);
+        return new ServerSentEventsTransport(
+          _httpClient,
+          _accessTokenFactory,
+          _logger,
+          _options.logMessageContent ?? false,
+        );
       case HttpTransportType.LongPolling:
         return LongPollingTransport(_httpClient, _accessTokenFactory, _logger,
             _options.logMessageContent ?? false);

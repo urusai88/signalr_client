@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:logging/logging.dart';
 import 'package:w3c_event_source/event_source.dart';
@@ -26,11 +27,11 @@ class ServerSentEventsTransport implements ITransport {
   OnReceive onReceive;
 
   ServerSentEventsTransport(
-      SignalRHttpClient httpClient,
-      AccessTokenFactory accessTokenFactory,
-      Logger logger,
-      bool logMessageContent)
-      : assert(httpClient != null),
+    SignalRHttpClient httpClient,
+    AccessTokenFactory accessTokenFactory,
+    Logger logger,
+    bool logMessageContent,
+  )   : assert(httpClient != null),
         _httpClient = httpClient,
         _accessTokenFactory = accessTokenFactory,
         _logger = logger,

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:logging/logging.dart';
 
 import 'itransport.dart';
@@ -23,6 +25,8 @@ class HttpConnectionOptions {
   /// A function that provides an access token required for HTTP Bearer authentication.
   AccessTokenFactory accessTokenFactory;
 
+  HttpHeaders initialHeaders;
+
   /// A boolean indicating if message content should be logged.
   ///
   /// Message content can contain sensitive user data, so this is disabled by default.
@@ -36,17 +40,19 @@ class HttpConnectionOptions {
   bool skipNegotiation;
 
   // Methods
-  HttpConnectionOptions(
-      {SignalRHttpClient httpClient,
-      Object transport,
-      Logger logger,
-      AccessTokenFactory accessTokenFactory,
-      bool logMessageContent = false,
-      bool skipNegotiation = false})
-      : this.httpClient = httpClient,
+  HttpConnectionOptions({
+    SignalRHttpClient httpClient,
+    Object transport,
+    Logger logger,
+    AccessTokenFactory accessTokenFactory,
+    HttpHeaders initialHeaders,
+    bool logMessageContent = false,
+    bool skipNegotiation = false,
+  })  : this.httpClient = httpClient,
         this.transport = transport,
         this.logger = logger,
         this.accessTokenFactory = accessTokenFactory,
+        this.initialHeaders = initialHeaders,
         this.logMessageContent = logMessageContent,
         this.skipNegotiation = skipNegotiation;
 }
