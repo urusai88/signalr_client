@@ -25,7 +25,7 @@ class HttpConnectionOptions {
   /// A function that provides an access token required for HTTP Bearer authentication.
   AccessTokenFactory accessTokenFactory;
 
-  HttpHeaders initialHeaders;
+  Map<String, dynamic> initialHeaders;
 
   /// A boolean indicating if message content should be logged.
   ///
@@ -45,7 +45,7 @@ class HttpConnectionOptions {
     Object transport,
     Logger logger,
     AccessTokenFactory accessTokenFactory,
-    HttpHeaders initialHeaders,
+    Map<String, dynamic> initialHeaders,
     bool logMessageContent = false,
     bool skipNegotiation = false,
   })  : this.httpClient = httpClient,

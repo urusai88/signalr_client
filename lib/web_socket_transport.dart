@@ -13,7 +13,7 @@ class WebSocketTransport implements ITransport {
 
   Logger _logger;
   AccessTokenFactory _accessTokenFactory;
-  HttpHeaders _initialHeaders;
+  Map<String, dynamic> _initialHeaders;
   bool _logMessageContent;
   WebSocket _webSocket;
   StreamSubscription<Object> _webSocketListenSub;
@@ -27,7 +27,7 @@ class WebSocketTransport implements ITransport {
   // Methods
   WebSocketTransport(
     AccessTokenFactory accessTokenFactory,
-    HttpHeaders initialHeaders,
+    Map<String, dynamic> initialHeaders,
     Logger logger,
     bool logMessageContent,
   )   : this._accessTokenFactory = accessTokenFactory,
@@ -54,12 +54,7 @@ class WebSocketTransport implements ITransport {
     url = url.replaceFirst('http', 'ws');
     _logger?.finest("WebSocket try connecting to '$url'.");
 
-    final headers = <String, dynamic>{};
-    _initialHeaders.forEach((name, value) {
-      headers[name] = value;
-    });
-
-    _webSocket = await WebSocket.connect(url, headers: headers);
+    _webSocket = await WebSocket.connect(url, headers: _initialHeaders);
     _logger?.info("WebSocket connected to '$url'.");
     _webSocketListenSub = _webSocket.listen(
       // onData
